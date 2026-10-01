@@ -1,0 +1,1315 @@
+<!DOCTYPE html>
+<!--
+  =====================================================================
+  R-EVOLUTION PARTNERS — SITE INSTITUCIONAL (MODELO / PROTÓTIPO)
+  Arquivo: index.html  →  estrutura e conteúdo da página
+
+  Como este arquivo se conecta com os outros:
+  - css/style.css  → toda a aparência (cores, fontes, layout, animações)
+  - js/script.js   → todo o comportamento (abertura, menu, partículas,
+                     FAQ, formulário, links de contato etc.)
+
+  Busque por "EDITAR:" para encontrar os textos provisórios
+  (placeholders entre colchetes) que ainda precisam de conteúdo real.
+
+  CONTATOS (WhatsApp, telefone e e-mail): os links abaixo já estão
+  prontos, mas a fonte oficial dos dados é a constante CONTATO no topo
+  do js/script.js. O JavaScript reescreve todos os elementos marcados com
+  data-contact-link / data-contact-text a partir dela; os valores escritos
+  aqui no HTML servem de reserva caso o JavaScript não carregue.
+
+  ÍNDICE DESTE ARQUIVO
+  01. HEAD (metadados, SEO, Open Graph, favicon, fontes e CSS)
+  02. SPRITE SVG (gradientes, filtros, LOGO PROVISÓRIA e ícones)
+  03. ABERTURA FUTURISTA (INTRO)
+  04. LINK DE ACESSIBILIDADE "PULAR PARA O CONTEÚDO"
+  05. ELEMENTOS GLOBAIS (cursor, barra de progresso, aviso "toast")
+  06. HEADER (logo, menu desktop, botão, hambúrguer e menu mobile)
+  07. HERO (primeira dobra)
+  08. SOBRE NÓS (informações rápidas, Missão, Visão e Valores)
+  09. SERVIÇOS
+  10. COMO TRABALHAMOS (PROCESSO)
+  11. DIFERENCIAIS
+  12. FAQ (PERGUNTAS FREQUENTES)
+  13. CHAMADA FINAL (CTA)
+  14. CONTATO
+  15. FOOTER (RODAPÉ)
+  16. BOTÕES FLUTUANTES (WhatsApp e Voltar ao topo)
+  17. SCRIPT PRINCIPAL
+  =====================================================================
+-->
+<html lang="pt-BR" class="no-js">
+
+<!-- =====================================================================
+     01. HEAD
+     O que faz: informações que o navegador e os buscadores leem antes
+     de mostrar a página (título da aba, descrição, ícone, fontes, CSS).
+     ===================================================================== -->
+<head>
+  <!-- Codificação de caracteres: garante acentos (ç, ã, é) corretos -->
+  <meta charset="UTF-8">
+
+  <!-- Faz o site se adaptar à largura do celular (base do design responsivo) -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!--
+    Script mínimo inline (roda ANTES de a página aparecer):
+    1) troca a classe "no-js" por "js" no <html>. O CSS usa ".js" para só
+       esconder elementos animados quando sabemos que o JavaScript existe;
+    2) adiciona "is-intro-active", que trava a rolagem durante a abertura;
+    3) segurança: se o js/script.js não carregar em 8s, volta ao modo
+       "sem JS" (a abertura some e o site aparece normalmente).
+  -->
+  <script>
+    (function () {
+      var root = document.documentElement;
+      root.classList.remove('no-js');
+      root.classList.add('js', 'is-intro-active');
+      window.setTimeout(function () {
+        if (!window.REV_APP_READY) {
+          root.classList.remove('js', 'is-intro-active');
+          root.classList.add('no-js');
+        }
+      }, 8000);
+    })();
+  </script>
+
+  <!-- Título da aba. Observação: o navegador não permite colorir texto da
+       aba; o destaque do "R" aparece no favicon (monograma) ao lado dele. -->
+  <title>R-Evolution Partners</title>
+
+  <!-- SEO: descrição exibida pelo Google abaixo do título -->
+  <meta name="description" content="R-Evolution Partners: serviços digitais que impulsionam negócios. Transformamos negócios em histórias de sucesso. Sua evolução digital começa aqui.">
+
+  <!-- Como este é um PROTÓTIPO, pedimos aos buscadores para não indexar.
+       EDITAR: remova esta linha quando o site for publicado oficialmente. -->
+  <meta name="robots" content="noindex, nofollow">
+
+  <!-- Cor da barra do navegador no celular e esquema de cores escuro -->
+  <meta name="theme-color" content="#05070d">
+  <meta name="color-scheme" content="dark">
+
+  <!-- Open Graph: card de pré-visualização ao compartilhar o link
+       (WhatsApp, LinkedIn, Facebook...). -->
+  <!-- EDITAR: preencha a URL do site e a imagem de compartilhamento (1200x630 px) -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="R-Evolution Partners">
+  <meta property="og:title" content="R-Evolution Partners">
+  <meta property="og:description" content="Transformamos negócios em histórias de sucesso. Sua evolução digital começa aqui.">
+  <meta property="og:url" content="[URL do site]">
+  <meta property="og:image" content="[URL da imagem de compartilhamento]">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="R-Evolution Partners">
+  <meta name="twitter:description" content="Transformamos negócios em histórias de sucesso. Sua evolução digital começa aqui.">
+
+  <!--
+    FAVICON em SVG inline (data URI): é o monograma do "R" desenhado direto
+    no código, sem arquivo de imagem. Os caracteres especiais estão
+    "codificados" (%3C = <, %3E = >, %23 = #) para funcionar dentro da URL.
+    Cores: #05070d (fundo preto), #1a5cff (moldura azul), #00e5ff (R ciano).
+    EDITAR (logo oficial): troque este href pelo arquivo do favicon oficial.
+  -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2305070d'/%3E%3Cpath d='M14 3H50L61 14V50L50 61H14L3 50V14Z' fill='none' stroke='%231a5cff' stroke-width='3'/%3E%3Cpath d='M22.5 45V20.5H36.8L42.6 26.3V30L37.6 35H22.5M33.5 35L43 45' fill='none' stroke='%2300e5ff' stroke-width='5.5'/%3E%3C/svg%3E">
+
+  <!-- Google Fonts (única dependência externa permitida).
+       preconnect = abre a conexão com o servidor de fontes mais cedo.
+       Orbitron  → marca, números e detalhes tecnológicos
+       Sora      → títulos
+       Inter     → textos corridos (alta legibilidade)
+       display=swap → mostra uma fonte do sistema até a fonte carregar. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Orbitron:wght@500;600;700;800&family=Sora:wght@400;500;600;700&display=swap">
+
+  <!-- Folha de estilos principal do site -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <!-- =====================================================================
+       02. SPRITE SVG
+       O que faz: um "estoque" invisível de desenhos SVG reutilizáveis.
+       Cada <symbol> tem um id e pode ser usado em qualquer lugar com
+       <svg><use href="#id"></use></svg>. Assim a logo e os ícones ficam
+       definidos em UM lugar só.
+       Por que não usar display:none? Porque gradientes e filtros dentro de
+       um SVG com display:none param de funcionar no Chrome/Firefox. Por
+       isso ele tem tamanho zero e posição absoluta (classe .svg-sprite).
+       ===================================================================== -->
+  <!-- INÍCIO: Sprite SVG -->
+  <svg class="svg-sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+    <defs>
+      <!-- Gradiente azul → ciano usado na moldura do monograma e em anéis -->
+      <linearGradient id="rv-grad-frame" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" style="stop-color: var(--color-blue-500)"/>
+        <stop offset="1" style="stop-color: var(--color-brand-r)"/>
+      </linearGradient>
+
+      <!-- Filtro de BRILHO NEON do "R": desfoca uma cópia do traço
+           (feGaussianBlur) e coloca o traço nítido por cima (feMerge). -->
+      <filter id="rv-glow" x="-50%" y="-50%" width="200%" height="200%">
+        <feGaussianBlur stdDeviation="1.8" result="blur"/>
+        <feMerge>
+          <feMergeNode in="blur"/>
+          <feMergeNode in="blur"/>
+          <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+      </filter>
+
+      <!-- Versão mais sutil do brilho, para o "R" pequeno do nome -->
+      <filter id="rv-glow-sm" x="-50%" y="-50%" width="200%" height="200%">
+        <feGaussianBlur stdDeviation="1.1" result="blur"/>
+        <feMerge>
+          <feMergeNode in="blur"/>
+          <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+      </filter>
+    </defs>
+
+    <!-- ===================================================================
+         ███  LOGO PROVISÓRIA — SUBSTITUIR PELA LOGO OFICIAL AQUI  ███
+         EDITAR (logo oficial): os dois <symbol> abaixo formam a logo.
+         - #rv-monogram → símbolo isolado do "R" (header compacto, hero,
+           chamada final). O favicon (no <head>) usa o mesmo desenho.
+         - #rv-wordmark → nome "R-EVOLUTION" + "PARTNERS".
+         Ao receber a logo oficial em SVG, cole o desenho dentro destes
+         <symbol> (ajustando o viewBox) e o site inteiro será atualizado,
+         pois header, menu mobile e rodapé usam <use href="#..."> para eles.
+         As cores vêm das variáveis CSS (--color-brand-r etc.) via style.
+         =================================================================== -->
+
+    <!-- Monograma: octógono (moldura tecnológica) + "R" geométrico em neon -->
+    <symbol id="rv-monogram" viewBox="0 0 64 64">
+      <!-- Fundo escuro do octógono -->
+      <path d="M14 3H50L61 14V50L50 61H14L3 50V14Z" style="fill: var(--color-black-800)"/>
+      <!-- Moldura com gradiente azul → ciano -->
+      <path d="M14 3H50L61 14V50L50 61H14L3 50V14Z" fill="none" stroke="url(#rv-grad-frame)" stroke-width="1.6"/>
+      <!-- Pequenos "traços de circuito" nas laterais -->
+      <path d="M32 3v5M32 56v5M3 32h4M57 32h4" fill="none" stroke="url(#rv-grad-frame)" stroke-width="1.6" stroke-linecap="round"/>
+      <!-- O "R" geométrico, na cor exclusiva da marca, com brilho neon -->
+      <path d="M22.5 45V20.5H36.8L42.6 26.3V30L37.6 35H22.5M33.5 35L43 45" fill="none" stroke-width="4.4" stroke-linejoin="miter" filter="url(#rv-glow)" style="stroke: var(--color-brand-r)"/>
+    </symbol>
+
+    <!-- Nome completo: "R" geométrico (cor da marca) + "-EVOLUTION" (branco)
+         + "PARTNERS" (menor, cinza azulado, com letras bem espaçadas).
+         textLength força cada linha a ter sempre a mesma largura, mesmo
+         se a fonte Orbitron não carregar (o espaçamento se ajusta). -->
+    <symbol id="rv-wordmark" viewBox="0 0 236 52">
+      <path d="M2.6 28V10.9H13L17.2 15.1V17.5L13.4 21.3H2.6M10.6 21.3L17.6 28" fill="none" stroke-width="3.2" stroke-linejoin="miter" filter="url(#rv-glow-sm)" style="stroke: var(--color-brand-r)"/>
+      <text x="22" y="28" textLength="212" lengthAdjust="spacing" style="font-family: var(--font-display); font-size: 26px; font-weight: 600; fill: var(--color-text-primary)">-EVOLUTION</text>
+      <text x="22" y="47" textLength="212" lengthAdjust="spacing" style="font-family: var(--font-display); font-size: 12px; font-weight: 500; fill: var(--color-text-secondary)">PARTNERS</text>
+    </symbol>
+    <!-- ███  FIM DA LOGO PROVISÓRIA  ███ -->
+
+    <!-- ===================================================================
+         ÍCONES (24x24, estilo "linha"). A cor e a espessura vêm da classe
+         .icon no CSS (stroke: currentColor = cor do texto ao redor).
+         Todos foram desenhados para este site, no mesmo estilo de traço.
+         =================================================================== -->
+    <!-- Ícones de interface -->
+    <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+    <symbol id="i-send" viewBox="0 0 24 24"><path d="M21 3L10 14M21 3l-7 18-4-7-7-4z"/></symbol>
+    <symbol id="i-skip" viewBox="0 0 24 24"><path d="M4.5 6l7 6-7 6zM12.5 6l7 6-7 6z"/></symbol>
+
+    <!-- Ícones das informações rápidas (Sobre nós) -->
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/><path d="M8 13.5h.01M12 13.5h.01M16 13.5h.01M8 17h.01M12 17h.01"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21.5s-7-6.2-7-11.5a7 7 0 0 1 14 0c0 5.3-7 11.5-7 11.5z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+    <symbol id="i-cpu" viewBox="0 0 24 24"><rect x="6.5" y="6.5" width="11" height="11" rx="2"/><path d="M9.5 3v3.5M14.5 3v3.5M9.5 17.5V21M14.5 17.5V21M3 9.5h3.5M3 14.5h3.5M17.5 9.5H21M17.5 14.5H21"/><rect x="9.5" y="9.5" width="5" height="5" rx="1"/></symbol>
+
+    <!-- Ícones de Missão, Visão e Valores -->
+    <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-diamond" viewBox="0 0 24 24"><path d="M6.5 3.5h11l4 5.5-10 11.5-10-11.5z"/><path d="M2 9h20M12 20.5L8.5 9l3.5-5.5L15.5 9z"/></symbol>
+
+    <!-- Ícones dos SERVIÇOS (um exclusivo para cada serviço) -->
+    <!-- Landing Page: janela do navegador com bloco de destaque e cursor -->
+    <symbol id="i-landing" viewBox="0 0 24 24"><rect x="2.5" y="4" width="19" height="15.5" rx="2.5"/><path d="M2.5 8.5h19"/><path d="M5.5 6.25h.01M7.8 6.25h.01"/><path d="M6 12h7M6 15h4.5"/><path d="M15 12.5l5.2 1.9-2.3.9-.9 2.3z"/></symbol>
+    <!-- Automação: ciclo contínuo (setas) em volta de um núcleo -->
+    <symbol id="i-automation" viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 1-13.6 5.7"/><path d="M4 12a8 8 0 0 1 13.6-5.7"/><path d="M17.8 2.8v3.7h-3.7"/><path d="M6.2 21.2v-3.7h3.7"/><circle cx="12" cy="12" r="2.6"/></symbol>
+    <!-- Sites: monitor com sinais de código < > -->
+    <symbol id="i-site" viewBox="0 0 24 24"><rect x="2.5" y="3.5" width="19" height="13.5" rx="2"/><path d="M8 21h8M12 17v4"/><path d="M9.5 8l-2.5 2.25 2.5 2.25M14.5 8l2.5 2.25-2.5 2.25"/></symbol>
+    <!-- Agentes de IA: balão de conversa com faísca (assistente inteligente) -->
+    <symbol id="i-ai-agent" viewBox="0 0 24 24"><path d="M4 4.5h16A1.5 1.5 0 0 1 21.5 6v9.5A1.5 1.5 0 0 1 20 17h-9.5l-5 4v-4H4a1.5 1.5 0 0 1-1.5-1.5V6A1.5 1.5 0 0 1 4 4.5z"/><path d="M12 7.5l1 2.3 2.3 1-2.3 1-1 2.3-1-2.3-2.3-1 2.3-1z"/></symbol>
+    <!-- Sistema de Logística: caminhão -->
+    <symbol id="i-truck" viewBox="0 0 24 24"><path d="M2.5 6h11.5v10H2.5z"/><path d="M14 9.5h4.2l3.3 3.7V16H14"/><circle cx="6.5" cy="17.5" r="2"/><circle cx="17.5" cy="17.5" r="2"/></symbol>
+    <!-- Sistema Financeiro: carteira -->
+    <symbol id="i-wallet" viewBox="0 0 24 24"><path d="M19 8V6.5A1.5 1.5 0 0 0 17.5 5h-12A2.5 2.5 0 0 0 3 7.5v10A2.5 2.5 0 0 0 5.5 20h12a1.5 1.5 0 0 0 1.5-1.5V17"/><path d="M21 10h-4.5a2.5 2.5 0 0 0 0 5H21z"/><path d="M16.8 12.5h.01"/><path d="M3 7.5A2.5 2.5 0 0 0 5.5 10H19"/></symbol>
+
+    <!-- Ícones dos DIFERENCIAIS -->
+    <!-- Foguete (Soluções 100% Personalizadas) -->
+    <symbol id="i-rocket" viewBox="0 0 24 24"><path d="M12 2.5c3 2.3 4.5 5.6 4.5 9.7L15 16H9l-1.5-3.8c0-4.1 1.5-7.4 4.5-9.7z"/><circle cx="12" cy="9" r="1.7"/><path d="M7.6 11.6L5 14v3.8l4-1.8"/><path d="M16.4 11.6L19 14v3.8l-4-1.8"/><path d="M10.2 19.2c.4 1 1 1.7 1.8 2.3.8-.6 1.4-1.3 1.8-2.3"/></symbol>
+    <!-- Robô / IA (Tecnologia e Inteligência Artificial) -->
+    <symbol id="i-robot" viewBox="0 0 24 24"><rect x="4.5" y="8" width="15" height="11.5" rx="3"/><path d="M12 8V5"/><circle cx="12" cy="3.8" r="1.2"/><path d="M9.5 12.3v1.6M14.5 12.3v1.6M9.5 16.6h5M2.5 12v3.5M21.5 12v3.5"/></symbol>
+    <!-- Raio (Agilidade na Entrega) -->
+    <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2.5L4.5 13.5h6.5l-1 8 8.5-11h-6.5z"/></symbol>
+    <!-- Cadeado (Segurança e Confiabilidade) -->
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4.5" y="10.5" width="15" height="10.5" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/><path d="M12 14.5v2.5"/></symbol>
+    <!-- Aperto de mãos (Suporte Contínuo) -->
+    <symbol id="i-handshake" viewBox="0 0 24 24"><path d="M2.5 11.5l3-3.5 3.5 1.5"/><path d="M21.5 11.5l-3-3.5-4 .5-4.6 3.6a1.3 1.3 0 0 0 1.6 2l2.9-1.9"/><path d="M14.4 12.2l3.8 3.4a1.3 1.3 0 0 1-1.8 1.9l-1.6-1.4"/><path d="M14.8 16.1a1.3 1.3 0 0 1-1.8 1.9l-1.4-1.2"/><path d="M11.6 16.8a1.3 1.3 0 0 1-1.8 1.9L6 15.4"/><path d="M6 15.4L3.6 13"/><path d="M18.2 15.6l2-1.6"/></symbol>
+    <!-- Globo (Alcance Internacional) -->
+    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.4 2.5 3.7 5.5 3.7 9s-1.3 6.5-3.7 9c-2.4-2.5-3.7-5.5-3.7-9S9.6 5.5 12 3z"/></symbol>
+
+    <!-- Ícones de contato -->
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 3.5h3.5l1.5 4.5-2.2 1.4a11 11 0 0 0 6.8 6.8l1.4-2.2 4.5 1.5V19a1.5 1.5 0 0 1-1.6 1.5C10.6 20 4 13.4 3.5 5.1A1.5 1.5 0 0 1 5 3.5z"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 7l8.5 6 8.5-6"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></symbol>
+
+    <!-- Ícones de redes sociais (desenhos simplificados) -->
+    <symbol id="i-instagram" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5v.01"/></symbol>
+    <symbol id="i-linkedin" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M7.5 10.5v6M7.5 7.5v.01M11.5 16.5v-6M11.5 13.5c0-1.7 1.3-3 3-3s2.5 1.3 2.5 3v3"/></symbol>
+    <symbol id="i-facebook" viewBox="0 0 24 24"><path d="M14.5 21v-7.5h2.7l.4-3.2h-3.1V8.4c0-.9.3-1.5 1.6-1.5h1.7V4.1c-.3 0-1.3-.1-2.5-.1-2.4 0-4.1 1.5-4.1 4.2v2.1H8.5v3.2h2.7V21"/></symbol>
+    <symbol id="i-youtube" viewBox="0 0 24 24"><rect x="2.5" y="5.5" width="19" height="13" rx="4"/><path d="M10.5 9.5v5l4-2.5z"/></symbol>
+    <symbol id="i-whatsapp" viewBox="0 0 24 24"><path d="M3.5 20.5l1.4-4.3A8.5 8.5 0 1 1 8 19.2z"/><path d="M9 8.6c.2-.5.6-.6 1-.6h.4l1 2.3-.7.9a5.6 5.6 0 0 0 2.6 2.6l.9-.7 2.3 1v.4c0 .4-.1.8-.6 1-.8.4-2.4.3-4.4-1.3-1.8-1.5-2.8-3.4-2.7-4.6z"/></symbol>
+  </svg>
+  <!-- FIM: Sprite SVG -->
+
+
+  <!-- =====================================================================
+       03. ABERTURA FUTURISTA (INTRO)
+       O que faz: sequência cinematográfica em tela cheia que roda antes do
+       site: grade de luz + varredura → partículas convergindo → o "R" é
+       desenhado e acende em neon → "-EVOLUTION" nasce do R → "PARTNERS"
+       surge → a frase é digitada → barra de carregamento → as "cortinas"
+       se abrem revelando o Hero.
+       Toda a lógica de tempo está no js/script.js (seção 04) e o visual no
+       css/style.css (seção 10). Cada etapa adiciona uma classe na <div>
+       .intro (is-playing, is-drawing, is-lit, is-revealing, is-partners,
+       is-exiting) e o CSS reage a essas classes.
+       data-intro-*  → "ganchos" que o JavaScript usa para achar cada peça.
+       ===================================================================== -->
+  <!-- INÍCIO: Abertura -->
+  <div class="intro" data-intro>
+    <!-- Cortinas pretas: formam o fundo e se abrem ao meio na saída -->
+    <div class="intro__shutter intro__shutter--top" aria-hidden="true"></div>
+    <div class="intro__shutter intro__shutter--bottom" aria-hidden="true"></div>
+
+    <!-- Canvas: partículas azuis que convergem para o "R" (desenhadas via JS) -->
+    <canvas class="intro__canvas" data-intro-canvas aria-hidden="true"></canvas>
+
+    <!-- Grade de linhas de luz e faixa de "scan" que percorre a tela -->
+    <div class="intro__grid" aria-hidden="true"></div>
+    <div class="intro__scan" aria-hidden="true"></div>
+
+    <!-- Detalhes de "HUD" (cantoneiras e etiquetas técnicas nos cantos) -->
+    <div class="intro__hud" aria-hidden="true">
+      <span class="intro__corner intro__corner--tl"></span>
+      <span class="intro__corner intro__corner--tr"></span>
+      <span class="intro__corner intro__corner--bl"></span>
+      <span class="intro__corner intro__corner--br"></span>
+      <span class="intro__label intro__label--tl">R-EVOLUTION // SISTEMA</span>
+      <span class="intro__label intro__label--tr">PROTÓTIPO v1.0</span>
+    </div>
+
+    <!-- Feixe de luz horizontal que aparece no meio da tela na saída -->
+    <div class="intro__beam" aria-hidden="true"></div>
+
+    <div class="intro__content">
+      <!-- Texto só para leitores de tela (a parte visual é decorativa) -->
+      <p class="sr-only">R-Evolution Partners: carregando o site.</p>
+
+      <!-- Logo animada da abertura -->
+      <div class="intro__logo" aria-hidden="true">
+        <div class="intro__name" data-intro-name>
+          <!-- O "R" é um desenho SVG de traço. pathLength="100" normaliza o
+               tamanho do traço para 100, o que facilita o efeito de "desenhar"
+               com stroke-dasharray/stroke-dashoffset no CSS. -->
+          <svg class="intro__r" viewBox="0 8 20 20" data-intro-r>
+            <path class="intro__r-body" d="M2.6 28V10.9H13L17.2 15.1V17.5L13.4 21.3H2.6" pathLength="100"/>
+            <path class="intro__r-leg" d="M10.6 21.3L17.6 28" pathLength="100"/>
+          </svg>
+          <!-- O JavaScript quebra este texto em letras individuais para que
+               cada uma "nasça" de dentro do R -->
+          <span class="intro__rest" data-intro-rest>-EVOLUTION</span>
+        </div>
+        <div class="intro__partners">PARTNERS</div>
+      </div>
+
+      <!-- Frase da empresa com efeito de digitação.
+           "ghost" = cópia invisível que reserva o espaço final do texto,
+           evitando que o layout "pule" enquanto as letras aparecem. -->
+      <p class="intro__tagline" aria-hidden="true">
+        <span class="intro__tagline-ghost" data-intro-ghost>Transformamos negócios em histórias de sucesso. Sua evolução digital começa aqui.</span>
+        <span class="intro__tagline-typed"><span data-intro-typed></span><span class="intro__caret"></span></span>
+      </p>
+
+      <!-- Indicador de carregamento (0 a 100%) -->
+      <div class="intro__loader" aria-hidden="true">
+        <div class="intro__loader-meta">
+          <span class="intro__status" data-intro-status>INICIALIZANDO</span>
+          <span class="intro__percent" data-intro-percent>0%</span>
+        </div>
+        <div class="intro__bar"><span class="intro__bar-fill" data-intro-bar></span></div>
+      </div>
+    </div>
+
+    <!-- Botão "Pular intro" (também é possível pular com a tecla Esc) -->
+    <button class="intro__skip" type="button" data-intro-skip>
+      Pular intro
+      <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-skip"></use></svg>
+    </button>
+  </div>
+  <!-- FIM: Abertura -->
+
+
+  <!-- =====================================================================
+       04. LINK "PULAR PARA O CONTEÚDO"
+       O que faz: fica invisível até receber foco pelo teclado (Tab). Permite
+       que quem navega por teclado/leitor de tela pule o menu e vá direto
+       ao conteúdo principal (<main id="conteudo">).
+       ===================================================================== -->
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+
+  <!-- =====================================================================
+       05. ELEMENTOS GLOBAIS
+       ===================================================================== -->
+  <!-- INÍCIO: Cursor personalizado (ponto + anel). Só é ativado pelo JS em
+       computadores com mouse; em celulares/tablets fica escondido. -->
+  <div class="cursor is-hidden" data-cursor aria-hidden="true">
+    <span class="cursor__ring" data-cursor-ring></span>
+    <span class="cursor__dot" data-cursor-dot></span>
+  </div>
+  <!-- FIM: Cursor personalizado -->
+
+  <!-- INÍCIO: Barra de progresso de leitura (topo da página). O JS
+       aumenta a largura conforme a rolagem. -->
+  <div class="scroll-progress" aria-hidden="true">
+    <span class="scroll-progress__bar" data-scroll-progress></span>
+  </div>
+  <!-- FIM: Barra de progresso -->
+
+  <!-- INÍCIO: Aviso "toast" (mensagens curtas, ex.: "link provisório").
+       role="status" + aria-live="polite" → leitores de tela anunciam o
+       texto quando ele muda, sem interromper o usuário. -->
+  <div class="toast" role="status" aria-live="polite" data-toast></div>
+  <!-- FIM: Aviso toast -->
+
+
+  <!-- =====================================================================
+       06. HEADER
+       O que faz: barra fixa no topo com logo, menu e botão "Fale conosco".
+       Ao rolar, ganha fundo de vidro fosco (classe .is-scrolled via JS).
+       No celular, o menu vira um botão hambúrguer que abre um menu em tela
+       cheia (que fica DENTRO do header para o "trap de foco" funcionar).
+       data-intro-inert → o JS deixa este bloco inerte (sem foco/clique)
+       enquanto a abertura está rodando.
+       ===================================================================== -->
+  <!-- INÍCIO: Header -->
+  <header class="site-header" data-header data-intro-inert>
+    <div class="container header__inner">
+
+      <!-- Logo (link para o topo). aria-label garante que leitores de tela
+           leiam "R-Evolution Partners" mesmo com o R desenhado à parte. -->
+      <a class="logo" href="#inicio" aria-label="R-Evolution Partners: ir para o início">
+        <svg class="logo__mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><use href="#rv-monogram"></use></svg>
+        <svg class="logo__wordmark" viewBox="0 0 236 52" aria-hidden="true" focusable="false"><use href="#rv-wordmark"></use></svg>
+      </a>
+
+      <!-- Menu desktop (aparece a partir de 1024px).
+           data-nav-link → usado pelo "scroll spy" para destacar a seção atual.
+           data-nav-indicator → linha luminosa que desliza até o link ativo. -->
+      <nav class="nav" aria-label="Menu principal">
+        <ul class="nav__list" data-nav-list>
+          <li><a class="nav__link" href="#sobre" data-nav-link>Sobre</a></li>
+          <li><a class="nav__link" href="#servicos" data-nav-link>Serviços</a></li>
+          <li><a class="nav__link" href="#processo" data-nav-link>Processo</a></li>
+          <li><a class="nav__link" href="#diferenciais" data-nav-link>Diferenciais</a></li>
+          <li><a class="nav__link" href="#faq" data-nav-link>FAQ</a></li>
+          <li><a class="nav__link" href="#contato" data-nav-link>Contato</a></li>
+        </ul>
+        <span class="nav__indicator" data-nav-indicator aria-hidden="true"></span>
+      </nav>
+
+      <div class="header__actions">
+        <!-- Botão de destaque (escondido no celular, onde aparece no menu) -->
+        <a class="btn btn--primary btn--sm header__cta" href="#contato" data-magnetic>
+          <span class="btn__label">Fale conosco</span>
+          <svg class="icon btn__icon" aria-hidden="true" focusable="false"><use href="#i-arrow-right"></use></svg>
+        </a>
+
+        <!-- Botão hambúrguer (só no celular/tablet).
+             aria-expanded → informa se o menu está aberto (o JS atualiza).
+             aria-controls → aponta qual elemento este botão controla. -->
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Abrir menu" data-menu-toggle>
+          <span class="menu-toggle__bars" aria-hidden="true"><span></span><span></span><span></span></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- INÍCIO: Menu mobile em tela cheia (abre com efeito circular) -->
+    <div class="mobile-menu" id="mobile-menu" data-mobile-menu>
+      <nav class="mobile-menu__nav" aria-label="Menu principal (celular)">
+        <ul class="mobile-menu__list">
+          <!-- --i = posição do item; o CSS usa para o atraso em cascata -->
+          <li class="mobile-menu__item" style="--i:0"><a class="mobile-menu__link" href="#sobre" data-nav-link><span class="mobile-menu__index">01</span>Sobre</a></li>
+          <li class="mobile-menu__item" style="--i:1"><a class="mobile-menu__link" href="#servicos" data-nav-link><span class="mobile-menu__index">02</span>Serviços</a></li>
+          <li class="mobile-menu__item" style="--i:2"><a class="mobile-menu__link" href="#processo" data-nav-link><span class="mobile-menu__index">03</span>Processo</a></li>
+          <li class="mobile-menu__item" style="--i:3"><a class="mobile-menu__link" href="#diferenciais" data-nav-link><span class="mobile-menu__index">04</span>Diferenciais</a></li>
+          <li class="mobile-menu__item" style="--i:4"><a class="mobile-menu__link" href="#faq" data-nav-link><span class="mobile-menu__index">05</span>FAQ</a></li>
+          <li class="mobile-menu__item" style="--i:5"><a class="mobile-menu__link" href="#contato" data-nav-link><span class="mobile-menu__index">06</span>Contato</a></li>
+        </ul>
+      </nav>
+
+      <div class="mobile-menu__footer" style="--i:6">
+        <a class="btn btn--primary btn--block" href="#contato">
+          <span class="btn__label">Fale conosco</span>
+          <svg class="icon btn__icon" aria-hidden="true" focusable="false"><use href="#i-arrow-right"></use></svg>
+        </a>
+        <!-- Contatos clicáveis (atualizados pelo JS a partir de CONTATO) -->
+        <p class="mobile-menu__contact">
+          <a class="link-underline" href="tel:+5527992973770" data-contact-link="phone" data-contact-text="phone">(27) 99297-3770</a>
+          <a class="link-underline" href="mailto:revolutionpartners26@gmail.com?subject=Or%C3%A7amento&amp;body=Ol%C3%A1%2C%20gostaria%20de%20fazer%20um%20or%C3%A7amento." data-contact-link="email" data-contact-text="email">revolutionpartners26@<wbr>gmail.com</a>
+        </p>
+        <!-- EDITAR: links reais das redes sociais (troque href="#") -->
+        <ul class="social" aria-label="Redes sociais">
+          <li><a class="social__link" href="#" data-placeholder-link="Instagram" aria-label="Instagram (link provisório)"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-instagram"></use></svg></a></li>
+          <li><a class="social__link" href="#" data-placeholder-link="LinkedIn" aria-label="LinkedIn (link provisório)"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-linkedin"></use></svg></a></li>
+          <li><a class="social__link" href="#" data-placeholder-link="Facebook" aria-label="Facebook (link provisório)"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-facebook"></use></svg></a></li>
+          <li><a class="social__link" href="#" data-placeholder-link="YouTube" aria-label="YouTube (link provisório)"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-youtube"></use></svg></a></li>
+        </ul>
+      </div>
+    </div>
+    <!-- FIM: Menu mobile -->
+  </header>
+  <!-- FIM: Header -->
+
+
+  <!-- Conteúdo principal. tabindex="-1" permite receber foco via "Pular
+       para o conteúdo" sem entrar na ordem normal do Tab. -->
+  <main id="conteudo" tabindex="-1" data-intro-inert>
+
+    <!-- ===================================================================
+         07. HERO
+         O que faz: primeira dobra do site. Fundo com partículas interativas
+         (canvas que reage ao mouse) + piso de grade 3D em perspectiva +
+         brilhos. Conteúdo com a frase da empresa, dois botões e o
+         indicador "role para baixo".
+         data-hero + style="--i:N" → elementos que entram em cascata quando
+         a abertura termina (N define a ordem/atraso).
+         =================================================================== -->
+    <!-- INÍCIO: Hero -->
+    <section class="hero" id="inicio" aria-labelledby="hero-title" tabindex="-1">
+
+      <!-- Camadas decorativas de fundo (aria-hidden: sem conteúdo para leitores) -->
+      <div class="hero__bg" aria-hidden="true">
+        <canvas class="hero__canvas" data-hero-canvas></canvas>
+        <div class="hero__floor"><div class="hero__floor-plane"></div></div>
+        <div class="hero__glow hero__glow--1"></div>
+        <div class="hero__glow hero__glow--2"></div>
+        <div class="hero__vignette"></div>
+      </div>
+
+      <div class="container hero__inner">
+        <div class="hero__content">
+          <!-- Etiqueta acima do título com o nome da marca.
+               Padrão de acessibilidade da marca (usado em todo o site):
+               .sr-only → texto lido pelo leitor de tela ("R-Evolution Partners");
+               .brand__visual (aria-hidden) → versão visual com o R destacado. -->
+          <p class="hero__eyebrow" data-hero style="--i:0">
+            <span class="pulse-dot" aria-hidden="true"></span>
+            <span class="brand"><span class="sr-only">R-Evolution Partners</span><span class="brand__visual" aria-hidden="true"><span class="brand-r">R</span>-Evolution Partners</span></span>
+            <span class="hero__eyebrow-sep" aria-hidden="true">/</span>
+            <span>Serviços digitais que impulsionam negócios</span>
+          </p>
+
+          <!-- ÚNICO h1 da página: a frase principal da empresa.
+               Cada linha sobe de dentro de uma "máscara" (overflow:hidden). -->
+          <h1 class="hero__title" id="hero-title">
+            <span class="hero__title-line" style="--i:1"><span>Transformamos negócios</span></span>
+            <span class="hero__title-line" style="--i:2"><span>em <span class="text-gradient">histórias de sucesso.</span></span></span>
+          </h1>
+
+          <p class="hero__lead" data-hero style="--i:3">Sua <strong>evolução digital</strong> começa aqui.</p>
+
+          <div class="hero__actions" data-hero style="--i:4">
+            <!-- data-magnetic → o botão "puxa" levemente em direção ao mouse -->
+            <a class="btn btn--primary" href="#contato" data-magnetic>
+              <span class="btn__label">Fale conosco</span>
+              <svg class="icon btn__icon" aria-hidden="true" focusable="false"><use href="#i-arrow-right"></use></svg>
+            </a>
+            <a class="btn btn--ghost" href="#servicos">
+              <span class="btn__label">Conheça os serviços</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Visual do lado direito: órbitas girando em volta do monograma.
+             data-hero-parallax → o JS move esta camada levemente com o mouse. -->
+        <div class="hero__visual" aria-hidden="true">
+          <div class="orbit" data-hero style="--i:3">
+            <div class="orbit__parallax" data-hero-parallax>
+              <svg class="orbit__svg" viewBox="0 0 400 400" focusable="false">
+                <!-- Caminho circular invisível onde o texto vai "andar" -->
+                <path id="orbit-text-path" d="M200 200m-128 0a128 128 0 1 1 256 0a128 128 0 1 1-256 0" fill="none"/>
+                <!-- Anéis estáticos -->
+                <circle class="orbit__ring" cx="200" cy="200" r="192"/>
+                <circle class="orbit__ring orbit__ring--dashed" cx="200" cy="200" r="160"/>
+                <circle class="orbit__ring orbit__ring--glow" cx="200" cy="200" r="100"/>
+                <!-- Grupos que giram (animação "spin" no CSS) -->
+                <g class="orbit__spin orbit__spin--slow">
+                  <circle class="orbit__ticks" cx="200" cy="200" r="176"/>
+                  <circle class="orbit__node" cx="200" cy="8" r="4"/>
+                  <circle class="orbit__node orbit__node--small" cx="392" cy="200" r="2.5"/>
+                </g>
+                <g class="orbit__spin orbit__spin--reverse">
+                  <circle class="orbit__node orbit__node--r" cx="40" cy="200" r="5"/>
+                  <circle class="orbit__node orbit__node--small" cx="200" cy="360" r="3"/>
+                </g>
+                <!-- Texto circular reforçando o conceito do nome -->
+                <g class="orbit__spin orbit__spin--text">
+                  <text class="orbit__text">
+                    <textPath href="#orbit-text-path" textLength="790" lengthAdjust="spacing"><tspan class="orbit__text-r">R</tspan>-EVOLUTION · EVOLUÇÃO + REVOLUÇÃO · SUA EVOLUÇÃO DIGITAL COMEÇA AQUI ·</textPath>
+                  </text>
+                </g>
+              </svg>
+              <!-- Núcleo com o monograma flutuando -->
+              <div class="orbit__core">
+                <svg class="orbit__mark" viewBox="0 0 64 64" focusable="false"><use href="#rv-monogram"></use></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Indicador "role para baixo" (leva até a seção Sobre) -->
+      <a class="scroll-indicator" href="#sobre" data-hero style="--i:5">
+        <span class="scroll-indicator__mouse" aria-hidden="true"><span class="scroll-indicator__wheel"></span></span>
+        <span class="scroll-indicator__label">Role para baixo</span>
+      </a>
+    </section>
+    <!-- FIM: Hero -->
+
+
+    <!-- ===================================================================
+         08. SOBRE NÓS
+         O que faz: informações rápidas da empresa (Fundação, Base, Atuação)
+         em pequenos cards com ícone, seguidas dos cards de Missão, Visão e
+         Valores. O card de Valores ocupa a largura toda e lista cada valor
+         com um título curto e uma descrição.
+         data-reveal="..." → animação de entrada ao rolar (o JS adiciona a
+         classe .is-revealed quando o elemento aparece na tela).
+         data-reveal-stagger="N" → os filhos entram em cascata (N ms entre eles).
+         =================================================================== -->
+    <!-- INÍCIO: Sobre nós -->
+    <section class="section about" id="sobre" aria-labelledby="sobre-title">
+      <div class="container">
+        <div class="about__head">
+          <header class="section-head" data-reveal="fade-up">
+            <p class="eyebrow"><span class="eyebrow__index">01</span><span class="eyebrow__line" aria-hidden="true"></span>Sobre nós</p>
+            <h2 class="section-title" id="sobre-title">Sobre a <span class="brand"><span class="sr-only">R-Evolution Partners</span><span class="brand__visual" aria-hidden="true"><span class="brand-r">R</span>-Evolution Partners</span></span></h2>
+          </header>
+
+          <!-- Informações rápidas (lista com ícone + rótulo + valor) -->
+          <ul class="facts" role="list" data-reveal-stagger="90">
+            <li class="fact" data-reveal="fade-up">
+              <span class="fact__icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-calendar"></use></svg></span>
+              <span class="fact__body"><span class="fact__label">Fundação</span><span class="fact__value">2026</span></span>
+            </li>
+            <li class="fact" data-reveal="fade-up">
+              <span class="fact__icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-pin"></use></svg></span>
+              <span class="fact__body"><span class="fact__label">Base</span><span class="fact__value">ES</span></span>
+            </li>
+            <li class="fact" data-reveal="fade-up">
+              <span class="fact__icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-cpu"></use></svg></span>
+              <span class="fact__body"><span class="fact__label">Atuação</span><span class="fact__value">Tecnologia e Inovação</span></span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Missão, Visão e Valores -->
+        <ul class="mvv" role="list" data-reveal-stagger="120">
+          <li class="mvv__item" data-reveal="fade-up">
+            <article class="mvv-card card-fx" data-spotlight>
+              <span class="mvv-card__icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-target"></use></svg></span>
+              <h3 class="mvv-card__title">Missão</h3>
+              <!-- Missão (texto sugerido; ajuste se quiser) -->
+              <p class="mvv-card__text">Impulsionar negócios com tecnologia sob medida, criando sites, sistemas, automações e agentes de IA que geram resultados reais e evoluem junto com cada cliente.</p>
+            </article>
+          </li>
+          <li class="mvv__item" data-reveal="fade-up">
+            <article class="mvv-card card-fx" data-spotlight>
+              <span class="mvv-card__icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-eye"></use></svg></span>
+              <h3 class="mvv-card__title">Visão</h3>
+              <p class="mvv-card__text">Expandir nossa atuação para o mundo todo, o mais rápido possível.</p>
+            </article>
+          </li>
+          <li class="mvv__item mvv__item--wide" data-reveal="fade-up">
+            <article class="mvv-card mvv-card--values card-fx" data-spotlight>
+              <div class="mvv-card__heading">
+                <span class="mvv-card__icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-diamond"></use></svg></span>
+                <h3 class="mvv-card__title">Valores</h3>
+              </div>
+              <!-- Cada valor: título curto (strong) + descrição de uma frase -->
+              <ul class="values" role="list">
+                <li class="values__item"><strong class="values__title">Inovação:</strong> buscamos constantemente novas tecnologias e soluções criativas para os desafios dos nossos clientes.</li>
+                <li class="values__item"><strong class="values__title">Transparência:</strong> comunicação clara e honesta em todas as etapas de cada projeto.</li>
+                <li class="values__item"><strong class="values__title">Compromisso com resultados:</strong> cada solução é pensada para gerar impacto real no negócio do cliente.</li>
+                <li class="values__item"><strong class="values__title">Parceria de longo prazo:</strong> crescemos junto com nossos clientes, oferecendo suporte e evolução contínua.</li>
+                <li class="values__item"><strong class="values__title">Segurança e confiabilidade:</strong> protegemos os dados e a operação de quem confia em nós.</li>
+                <li class="values__item"><strong class="values__title">Excelência:</strong> qualidade e atenção aos detalhes em tudo o que entregamos.</li>
+              </ul>
+            </article>
+          </li>
+        </ul>
+      </div>
+    </section>
+    <!-- FIM: Sobre nós -->
+
+
+    <!-- ===================================================================
+         09. SERVIÇOS
+         O que faz: grade com os 6 serviços. Cada card tem:
+         data-tilt      → inclinação 3D que acompanha o mouse;
+         data-spotlight → luz radial que segue o cursor dentro do card.
+         data-reveal-stagger="90" → os cards entram em cascata (90ms entre eles).
+         Para adicionar um serviço, copie um <li> inteiro e ajuste o número.
+         =================================================================== -->
+    <!-- INÍCIO: Serviços -->
+    <section class="section services" id="servicos" aria-labelledby="servicos-title">
+      <div class="container">
+        <header class="section-head section-head--center" data-reveal="fade-up">
+          <p class="eyebrow"><span class="eyebrow__index">02</span><span class="eyebrow__line" aria-hidden="true"></span>Serviços</p>
+          <h2 class="section-title" id="servicos-title">Soluções digitais para <span class="text-gradient">impulsionar</span> o seu negócio</h2>
+          <!-- EDITAR: frase de apoio da seção -->
+          <p class="section-subtitle">[Frase de apoio sobre os serviços oferecidos pela empresa.]</p>
+        </header>
+
+        <ul class="services__grid" role="list" data-reveal-stagger="90">
+          <li data-reveal="fade-up">
+            <article class="service-card card-fx" data-tilt data-spotlight>
+              <span class="service-card__index" aria-hidden="true">01</span>
+              <span class="service-card__icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-landing"></use></svg></span>
+              <h3 class="service-card__title">Landing Page</h3>
+              <p class="service-card__text">Transforme sua presença digital com uma página moderna e conquiste mais clientes. Fortaleça sua empresa e se destaque da concorrência.</p>
+              <a class="link-arrow" href="#contato">Saiba mais<span class="sr-only"> sobre Landing Page</span> <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-right"></use></svg></a>
+            </article>
+          </li>
+          <li data-reveal="fade-up">
+            <article class="service-card card-fx" data-tilt data-spotlight>
+              <span class="service-card__index" aria-hidden="true">02</span>
+              <span class="service-card__icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-automation"></use></svg></span>
+              <h3 class="service-card__title">Automação</h3>
+              <p class="service-card__text">Automatize processos, reduza custos e ofereça atendimento inteligente 24h por dia para seus clientes.</p>
+              <a class="link-arrow" href="#contato">Saiba mais<span class="sr-only"> sobre Automação</span> <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-right"></use></svg></a>
+            </article>
+          </li>
+          <li data-reveal="fade-up">
+            <article class="service-card card-fx" data-tilt data-spotlight>
+              <span class="service-card__index" aria-hidden="true">03</span>
+              <span class="service-card__icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-site"></use></svg></span>
+              <h3 class="service-card__title">Sites</h3>
+              <p class="service-card__text">Seu cliente procura seus serviços na internet. Tenha um site profissional, transmita confiança e gere credibilidade.</p>
+              <a class="link-arrow" href="#contato">Saiba mais<span class="sr-only"> sobre Sites</span> <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-right"></use></svg></a>
+            </article>
+          </li>
+          <li data-reveal="fade-up">
+            <article class="service-card card-fx" data-tilt data-spotlight>
+              <span class="service-card__index" aria-hidden="true">04</span>
+              <span class="service-card__icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-ai-agent"></use></svg></span>
+              <h3 class="service-card__title">Agentes de IA</h3>
+              <p class="service-card__text">Automatize processos e tenha um funcionário virtual que não para de trabalhar.</p>
+              <a class="link-arrow" href="#contato">Saiba mais<span class="sr-only"> sobre Agentes de IA</span> <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-right"></use></svg></a>
+            </article>
+          </li>
+          <li data-reveal="fade-up">
+            <article class="service-card card-fx" data-tilt data-spotlight>
+              <span class="service-card__index" aria-hidden="true">05</span>
+              <span class="service-card__icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-truck"></use></svg></span>
+              <h3 class="service-card__title">Sistema de Logística</h3>
+              <p class="service-card__text">Tenha total controle sobre suas entregas, estoque e transporte com um sistema de logística desenvolvido para reduzir custos e aumentar sua produtividade.</p>
+              <a class="link-arrow" href="#contato">Saiba mais<span class="sr-only"> sobre Sistema de Logística</span> <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-right"></use></svg></a>
+            </article>
+          </li>
+          <li data-reveal="fade-up">
+            <article class="service-card card-fx" data-tilt data-spotlight>
+              <span class="service-card__index" aria-hidden="true">06</span>
+              <span class="service-card__icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-wallet"></use></svg></span>
+              <h3 class="service-card__title">Sistema Financeiro</h3>
+              <p class="service-card__text">Tenha o controle das finanças da sua empresa na palma da mão, com um sistema que organiza TUDO em relação às finanças do seu negócio.</p>
+              <a class="link-arrow" href="#contato">Saiba mais<span class="sr-only"> sobre Sistema Financeiro</span> <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-right"></use></svg></a>
+            </article>
+          </li>
+        </ul>
+      </div>
+    </section>
+    <!-- FIM: Serviços -->
+
+
+    <!-- ===================================================================
+         10. COMO TRABALHAMOS (PROCESSO)
+         O que faz: frase de apoio em destaque + linha do tempo com as 5
+         etapas. A linha central se "preenche" de luz conforme a rolagem e
+         cada etapa acende (número em neon) quando a luz passa por ela.
+         data-timeline          → container observado pelo JS;
+         data-timeline-progress → a linha de luz (o JS controla a altura);
+         data-timeline-step     → cada etapa (ganha .is-active ao acender).
+         =================================================================== -->
+    <!-- INÍCIO: Processo -->
+    <section class="section process" id="processo" aria-labelledby="processo-title">
+      <div class="container">
+        <header class="section-head section-head--center" data-reveal="fade-up">
+          <p class="eyebrow"><span class="eyebrow__index">03</span><span class="eyebrow__line" aria-hidden="true"></span>Como trabalhamos</p>
+          <h2 class="section-title" id="processo-title">Um processo claro, <span class="text-gradient">do início ao resultado</span></h2>
+          <!-- Frase de apoio em destaque (caixa com borda luminosa) -->
+          <p class="section-highlight">Não entregamos apenas um sistema. <span class="text-gradient">Construímos parcerias de longo prazo</span>, oferecendo suporte, manutenção e evolução constante das soluções.</p>
+        </header>
+
+        <div class="timeline" data-timeline>
+          <div class="timeline__track" aria-hidden="true"><span class="timeline__progress" data-timeline-progress></span></div>
+          <!-- <ol> = lista ORDENADA: leitores de tela anunciam "1 de 5", "2 de 5"... -->
+          <ol class="timeline__list">
+            <li class="timeline__step" data-timeline-step>
+              <span class="timeline__dot" aria-hidden="true"></span>
+              <div class="timeline__card card-fx" data-reveal="fade-up" data-spotlight>
+                <span class="timeline__number" aria-hidden="true">01</span>
+                <h3 class="timeline__title">Análise e Planejamento</h3>
+                <p class="timeline__text">Entendemos as necessidades do seu negócio, identificamos desafios e definimos os objetivos do projeto para criar a melhor solução para sua empresa.</p>
+              </div>
+            </li>
+            <li class="timeline__step" data-timeline-step>
+              <span class="timeline__dot" aria-hidden="true"></span>
+              <div class="timeline__card card-fx" data-reveal="fade-up" data-spotlight>
+                <span class="timeline__number" aria-hidden="true">02</span>
+                <h3 class="timeline__title">Levantamento de Requisitos</h3>
+                <p class="timeline__text">Mapeamos processos, funcionalidades e expectativas para garantir que o sistema atenda exatamente às demandas da sua operação.</p>
+              </div>
+            </li>
+            <li class="timeline__step" data-timeline-step>
+              <span class="timeline__dot" aria-hidden="true"></span>
+              <div class="timeline__card card-fx" data-reveal="fade-up" data-spotlight>
+                <span class="timeline__number" aria-hidden="true">03</span>
+                <h3 class="timeline__title">Desenvolvimento da Solução</h3>
+                <p class="timeline__text">Transformamos o planejamento em realidade, desenvolvendo sistemas modernos, seguros e personalizados, com foco em desempenho e usabilidade.</p>
+              </div>
+            </li>
+            <li class="timeline__step" data-timeline-step>
+              <span class="timeline__dot" aria-hidden="true"></span>
+              <div class="timeline__card card-fx" data-reveal="fade-up" data-spotlight>
+                <span class="timeline__number" aria-hidden="true">04</span>
+                <h3 class="timeline__title">Testes e Implementação</h3>
+                <p class="timeline__text">Realizamos testes rigorosos para garantir qualidade, segurança e eficiência antes de implantar a solução em seu ambiente de trabalho.</p>
+              </div>
+            </li>
+            <li class="timeline__step" data-timeline-step>
+              <span class="timeline__dot" aria-hidden="true"></span>
+              <div class="timeline__card card-fx" data-reveal="fade-up" data-spotlight>
+                <span class="timeline__number" aria-hidden="true">05</span>
+                <h3 class="timeline__title">Suporte e Evolução</h3>
+                <p class="timeline__text">Após a entrega, continuamos ao seu lado, oferecendo suporte, melhorias e atualizações para acompanhar o crescimento do seu negócio.</p>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+    <!-- FIM: Processo -->
+
+
+    <!-- ===================================================================
+         11. DIFERENCIAIS
+         O que faz: frase motivadora em destaque + grade estilo "bento"
+         (blocos de tamanhos diferentes). .feature-wrap--wide ocupa 2
+         colunas; .feature-wrap--lead (o primeiro) ocupa a linha inteira
+         no desktop. Os dois blocos largos têm ilustrações animadas feitas
+         só com CSS (equalizador e radar).
+         =================================================================== -->
+    <!-- INÍCIO: Diferenciais -->
+    <section class="section features" id="diferenciais" aria-labelledby="diferenciais-title">
+      <div class="container">
+        <header class="section-head" data-reveal="fade-up">
+          <p class="eyebrow"><span class="eyebrow__index">04</span><span class="eyebrow__line" aria-hidden="true"></span>Diferenciais</p>
+          <h2 class="section-title" id="diferenciais-title">Por que evoluir com a <span class="brand"><span class="sr-only">R-Evolution Partners</span><span class="brand__visual" aria-hidden="true"><span class="brand-r">R</span>-Evolution</span></span></h2>
+          <!-- Frase motivadora em destaque -->
+          <p class="section-highlight">Transformamos ideias em tecnologia, desafios em oportunidades e <span class="text-gradient">projetos em resultados</span> que impulsionam o crescimento do seu negócio.</p>
+        </header>
+
+        <ul class="bento" role="list" data-reveal-stagger="90">
+          <li class="feature-wrap feature-wrap--wide feature-wrap--lead" data-reveal="fade-up">
+            <article class="feature feature--wide card-fx" data-spotlight>
+              <div class="feature__content">
+                <span class="feature__icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-rocket"></use></svg></span>
+                <h3 class="feature__title">Soluções 100% Personalizadas</h3>
+                <p class="feature__text">Desenvolvemos sistemas sob medida para atender às necessidades específicas do seu negócio, garantindo mais eficiência e melhores resultados.</p>
+              </div>
+              <!-- Ilustração decorativa: barras de "equalizador" (ajuste sob medida) -->
+              <div class="feature__visual eq" aria-hidden="true">
+                <span style="--h:.45;--d:0s"></span><span style="--h:.8;--d:.2s"></span><span style="--h:.6;--d:.4s"></span><span style="--h:.95;--d:.1s"></span><span style="--h:.5;--d:.3s"></span><span style="--h:.75;--d:.5s"></span><span style="--h:.4;--d:.15s"></span><span style="--h:.85;--d:.35s"></span>
+              </div>
+            </article>
+          </li>
+          <li class="feature-wrap" data-reveal="fade-up">
+            <article class="feature card-fx" data-spotlight>
+              <span class="feature__icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-robot"></use></svg></span>
+              <h3 class="feature__title">Tecnologia e Inteligência Artificial</h3>
+              <p class="feature__text">Utilizamos as tecnologias mais modernas do mercado, incluindo automação e agentes de IA, para otimizar processos e aumentar a produtividade.</p>
+            </article>
+          </li>
+          <li class="feature-wrap" data-reveal="fade-up">
+            <article class="feature card-fx" data-spotlight>
+              <span class="feature__icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-bolt"></use></svg></span>
+              <h3 class="feature__title">Agilidade na Entrega</h3>
+              <p class="feature__text">Trabalhamos com metodologias ágeis para entregar projetos com rapidez, qualidade e total transparência durante todo o processo.</p>
+            </article>
+          </li>
+          <li class="feature-wrap" data-reveal="fade-up">
+            <article class="feature card-fx" data-spotlight>
+              <span class="feature__icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-lock"></use></svg></span>
+              <h3 class="feature__title">Segurança e Confiabilidade</h3>
+              <p class="feature__text">Nossos sistemas são desenvolvidos com foco em segurança, estabilidade e proteção de dados, proporcionando tranquilidade para sua empresa.</p>
+            </article>
+          </li>
+          <li class="feature-wrap" data-reveal="fade-up">
+            <article class="feature card-fx" data-spotlight>
+              <span class="feature__icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-handshake"></use></svg></span>
+              <h3 class="feature__title">Suporte Contínuo</h3>
+              <p class="feature__text">Não entregamos apenas um sistema. Construímos parcerias de longo prazo, oferecendo suporte, manutenção e evolução constante das soluções.</p>
+            </article>
+          </li>
+          <li class="feature-wrap feature-wrap--wide" data-reveal="fade-up">
+            <article class="feature feature--wide card-fx" data-spotlight>
+              <div class="feature__content">
+                <span class="feature__icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-globe"></use></svg></span>
+                <h3 class="feature__title">Alcance Internacional</h3>
+                <p class="feature__text">Independentemente de onde sua empresa esteja, nossa tecnologia chega até você. Desenvolvemos sistemas, sites e soluções de IA para negócios de qualquer porte e em qualquer lugar do mundo.</p>
+              </div>
+              <!-- Ilustração decorativa: radar girando (alcance) -->
+              <div class="feature__visual radar" aria-hidden="true">
+                <span class="radar__sweep"></span>
+                <span class="radar__blip" style="--x:30%;--y:35%"></span>
+                <span class="radar__blip" style="--x:68%;--y:58%"></span>
+                <span class="radar__blip" style="--x:45%;--y:75%"></span>
+              </div>
+            </article>
+          </li>
+        </ul>
+      </div>
+    </section>
+    <!-- FIM: Diferenciais -->
+
+
+    <!-- ===================================================================
+         12. FAQ (PERGUNTAS FREQUENTES)
+         O que faz: acordeão acessível + frase de encerramento com botão
+         que leva ao contato. Cada pergunta é um <button> dentro de um
+         título <h3> (padrão recomendado pelo W3C/WAI-ARIA).
+         aria-expanded → "true" quando a resposta está aberta (o JS atualiza);
+         aria-controls → id do painel de resposta controlado pelo botão;
+         role="region" + aria-labelledby → o painel é anunciado com o texto
+         da pergunta.
+         data-accordion-single → só uma resposta aberta por vez (remova o
+         atributo para permitir várias abertas).
+         Teclado: setas ↑ ↓ navegam entre perguntas; Home/End vão à primeira/última.
+         =================================================================== -->
+    <!-- INÍCIO: FAQ -->
+    <section class="section faq" id="faq" aria-labelledby="faq-title">
+      <div class="container faq__inner">
+        <header class="section-head section-head--center" data-reveal="fade-up">
+          <p class="eyebrow"><span class="eyebrow__index">05</span><span class="eyebrow__line" aria-hidden="true"></span>FAQ</p>
+          <h2 class="section-title" id="faq-title">Perguntas <span class="text-gradient">frequentes</span></h2>
+        </header>
+
+        <div class="accordion" data-accordion data-accordion-single data-reveal="fade-up">
+          <div class="accordion__item">
+            <h3 class="accordion__heading">
+              <button class="accordion__trigger" type="button" id="faq-q1" aria-expanded="false" aria-controls="faq-a1">
+                <span>Quais tipos de sistemas vocês desenvolvem?</span><span class="accordion__icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="accordion__panel" id="faq-a1" role="region" aria-labelledby="faq-q1">
+              <div class="accordion__content"><p>Desenvolvemos sistemas personalizados para gestão empresarial, controle financeiro, logística, automação de processos, agentes de IA, plataformas web e soluções sob medida para diferentes segmentos.</p></div>
+            </div>
+          </div>
+          <div class="accordion__item">
+            <h3 class="accordion__heading">
+              <button class="accordion__trigger" type="button" id="faq-q2" aria-expanded="false" aria-controls="faq-a2">
+                <span>Quanto tempo leva para desenvolver um projeto?</span><span class="accordion__icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="accordion__panel" id="faq-a2" role="region" aria-labelledby="faq-q2">
+              <div class="accordion__content"><p>O prazo varia de acordo com a complexidade e os requisitos do projeto. Após a análise inicial, fornecemos um cronograma detalhado com todas as etapas de desenvolvimento.</p></div>
+            </div>
+          </div>
+          <div class="accordion__item">
+            <h3 class="accordion__heading">
+              <button class="accordion__trigger" type="button" id="faq-q3" aria-expanded="false" aria-controls="faq-a3">
+                <span>Vocês atendem empresas de qualquer região?</span><span class="accordion__icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="accordion__panel" id="faq-a3" role="region" aria-labelledby="faq-q3">
+              <div class="accordion__content"><p>Sim! Atendemos empresas de qualquer lugar do Brasil e do mundo, realizando reuniões, acompanhamento e suporte de forma totalmente online.</p></div>
+            </div>
+          </div>
+          <div class="accordion__item">
+            <h3 class="accordion__heading">
+              <button class="accordion__trigger" type="button" id="faq-q4" aria-expanded="false" aria-controls="faq-a4">
+                <span>Meu sistema pode ser personalizado conforme minha necessidade?</span><span class="accordion__icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="accordion__panel" id="faq-a4" role="region" aria-labelledby="faq-q4">
+              <div class="accordion__content"><p>Com certeza. Todas as nossas soluções são desenvolvidas para atender às necessidades específicas de cada cliente, garantindo maior eficiência e alinhamento com os objetivos do negócio.</p></div>
+            </div>
+          </div>
+          <div class="accordion__item">
+            <h3 class="accordion__heading">
+              <button class="accordion__trigger" type="button" id="faq-q5" aria-expanded="false" aria-controls="faq-a5">
+                <span>Vocês oferecem suporte após a entrega do projeto?</span><span class="accordion__icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="accordion__panel" id="faq-a5" role="region" aria-labelledby="faq-q5">
+              <div class="accordion__content"><p>Sim. Oferecemos suporte técnico, manutenção e atualizações para garantir o perfeito funcionamento da solução e acompanhar o crescimento da sua empresa.</p></div>
+            </div>
+          </div>
+          <div class="accordion__item">
+            <h3 class="accordion__heading">
+              <button class="accordion__trigger" type="button" id="faq-q6" aria-expanded="false" aria-controls="faq-a6">
+                <span>Como faço para solicitar um orçamento?</span><span class="accordion__icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="accordion__panel" id="faq-a6" role="region" aria-labelledby="faq-q6">
+              <div class="accordion__content"><p>Basta entrar em contato conosco através dos nossos canais de atendimento. Nossa equipe avaliará suas necessidades e apresentará uma proposta personalizada, sem compromisso.</p></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Encerramento do FAQ: frase + botão para a seção de contato -->
+        <div class="faq__closing" data-reveal="fade-up">
+          <p class="faq__closing-text">Não encontrou a resposta que procura? Entre em contato conosco e descubra como a tecnologia pode transformar o seu negócio.</p>
+          <a class="btn btn--primary" href="#contato" data-magnetic>
+            <span class="btn__label">Fale conosco</span>
+            <svg class="icon btn__icon" aria-hidden="true" focusable="false"><use href="#i-arrow-right"></use></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+    <!-- FIM: FAQ -->
+
+
+    <!-- ===================================================================
+         13. CHAMADA FINAL (CTA)
+         O que faz: faixa de destaque com fundo "aurora" animado convidando
+         para o contato, reutilizando a frase da empresa.
+         O botão de WhatsApp abre a conversa em nova aba com a mensagem
+         padrão (data-contact-link="whatsapp" → link gerado pelo JS).
+         =================================================================== -->
+    <!-- INÍCIO: Chamada final -->
+    <section class="section cta" id="chamada" aria-labelledby="cta-title">
+      <div class="container">
+        <div class="cta__box" data-reveal="zoom">
+          <div class="cta__aurora" aria-hidden="true"></div>
+          <div class="cta__grid" aria-hidden="true"></div>
+          <svg class="cta__mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><use href="#rv-monogram"></use></svg>
+
+          <p class="eyebrow eyebrow--center"><span class="eyebrow__line" aria-hidden="true"></span>Vamos conversar?<span class="eyebrow__line eyebrow__line--reverse" aria-hidden="true"></span></p>
+          <h2 class="cta__title" id="cta-title">Transformamos negócios em histórias de sucesso. <span class="text-gradient">Sua evolução digital começa aqui.</span></h2>
+          <p class="cta__text">
+            Fale com a <span class="brand"><span class="sr-only">R-Evolution Partners</span><span class="brand__visual" aria-hidden="true"><span class="brand-r">R</span>-Evolution Partners</span></span> e dê o próximo passo.
+          </p>
+          <div class="cta__actions">
+            <a class="btn btn--primary" href="#contato" data-magnetic>
+              <span class="btn__label">Fale conosco</span>
+              <svg class="icon btn__icon" aria-hidden="true" focusable="false"><use href="#i-arrow-right"></use></svg>
+            </a>
+            <a class="btn btn--ghost btn--whatsapp" href="https://wa.me/5527992973770?text=Ol%C3%A1%2C%20gostaria%20de%20fazer%20um%20or%C3%A7amento." target="_blank" rel="noopener noreferrer" data-contact-link="whatsapp">
+              <svg class="icon btn__icon" aria-hidden="true" focusable="false"><use href="#i-whatsapp"></use></svg>
+              <span class="btn__label">Chamar no WhatsApp</span>
+              <span class="sr-only"> (abre em nova aba)</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- FIM: Chamada final -->
+
+
+    <!-- ===================================================================
+         14. CONTATO
+         O que faz: informações de contato clicáveis + formulário completo.
+         LINKS (gerados pelo JS a partir da constante CONTATO do script.js):
+         data-contact-link="phone"    → tel:+5527992973770 (liga direto)
+         data-contact-link="email"    → mailto com assunto e mensagem prontos
+         data-contact-link="whatsapp" → wa.me com a mensagem padrão
+         data-contact-text="..."      → o JS também escreve o texto exibido
+         O formulário NÃO envia dados: a validação acontece em tempo real
+         no JavaScript e o envio é apenas SIMULADO (mensagem de sucesso).
+         novalidate → desliga os balões de erro nativos do navegador para
+         usarmos mensagens próprias, mais claras e estilizadas.
+         Em cada campo:
+         aria-describedby → liga o campo à sua mensagem de erro (o leitor de
+         tela lê o erro junto com o campo);
+         aria-invalid → o JS marca "true" quando o valor é inválido;
+         autocomplete → permite ao navegador preencher dados salvos;
+         placeholder=" " → truque para o rótulo flutuante do CSS
+         (:placeholder-shown) saber se o campo está vazio.
+         =================================================================== -->
+    <!-- INÍCIO: Contato -->
+    <section class="section contact" id="contato" aria-labelledby="contato-title">
+      <div class="container contact__grid">
+
+        <!-- Informações de contato -->
+        <div class="contact__info">
+          <header class="section-head" data-reveal="fade-up">
+            <p class="eyebrow"><span class="eyebrow__index">06</span><span class="eyebrow__line" aria-hidden="true"></span>Contato</p>
+            <h2 class="section-title" id="contato-title">Vamos construir a sua <span class="text-gradient">próxima história</span></h2>
+            <!-- EDITAR: frase de apoio da seção -->
+            <p class="section-subtitle">[Frase de apoio convidando para o contato.]</p>
+          </header>
+
+          <ul class="contact-list" role="list" data-reveal-stagger="90">
+            <li class="contact-item" data-reveal="fade-up">
+              <span class="contact-item__icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-phone"></use></svg></span>
+              <span class="contact-item__body"><span class="contact-item__label">Telefone / WhatsApp</span><a class="contact-item__value link-underline" href="tel:+5527992973770" data-contact-link="phone" data-contact-text="phone">(27) 99297-3770</a></span>
+            </li>
+            <li class="contact-item" data-reveal="fade-up">
+              <span class="contact-item__icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-mail"></use></svg></span>
+              <span class="contact-item__body"><span class="contact-item__label">E-mail</span><a class="contact-item__value link-underline" href="mailto:revolutionpartners26@gmail.com?subject=Or%C3%A7amento&amp;body=Ol%C3%A1%2C%20gostaria%20de%20fazer%20um%20or%C3%A7amento." data-contact-link="email" data-contact-text="email">revolutionpartners26@<wbr>gmail.com</a></span>
+            </li>
+            <li class="contact-item" data-reveal="fade-up">
+              <span class="contact-item__icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-clock"></use></svg></span>
+              <span class="contact-item__body"><span class="contact-item__label">Horário de atendimento</span><span class="contact-item__value">24h, todos os dias</span></span>
+            </li>
+          </ul>
+
+          <!-- Atalho direto para o WhatsApp (abre em nova aba).
+               A animação de entrada fica no invólucro <div> (e não no botão)
+               para não anular o efeito de hover do botão.
+               data-reveal-delay="300" → entra 300ms depois, após a lista. -->
+          <div class="contact__whatsapp" data-reveal="fade-up" data-reveal-delay="300">
+            <a class="btn btn--ghost btn--whatsapp" href="https://wa.me/5527992973770?text=Ol%C3%A1%2C%20gostaria%20de%20fazer%20um%20or%C3%A7amento." target="_blank" rel="noopener noreferrer" data-contact-link="whatsapp">
+              <svg class="icon btn__icon" aria-hidden="true" focusable="false"><use href="#i-whatsapp"></use></svg>
+              <span class="btn__label">Conversar no WhatsApp</span>
+              <span class="sr-only"> (abre em nova aba)</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Card do formulário -->
+        <div class="contact__card" data-reveal="fade-left">
+          <form class="form" data-form novalidate aria-labelledby="form-title">
+            <div class="form__header">
+              <h3 class="form__title" id="form-title">Envie sua mensagem</h3>
+              <p class="form__note">Campos com <span aria-hidden="true">*</span><span class="sr-only">asterisco</span> são obrigatórios.</p>
+            </div>
+
+            <div class="form__grid">
+              <!-- Nome -->
+              <div class="field" data-field>
+                <input class="field__input" id="nome" name="nome" type="text" placeholder=" " autocomplete="name" required aria-describedby="nome-error" maxlength="80">
+                <label class="field__label" for="nome">Nome completo <span aria-hidden="true">*</span></label>
+                <span class="field__status" aria-hidden="true"></span>
+                <p class="field__error" id="nome-error"></p>
+              </div>
+
+              <!-- E-mail -->
+              <div class="field" data-field>
+                <input class="field__input" id="email" name="email" type="email" placeholder=" " autocomplete="email" inputmode="email" required aria-describedby="email-error" maxlength="120">
+                <label class="field__label" for="email">E-mail <span aria-hidden="true">*</span></label>
+                <span class="field__status" aria-hidden="true"></span>
+                <p class="field__error" id="email-error"></p>
+              </div>
+
+              <!-- Telefone (máscara brasileira aplicada pelo JS).
+                   inputmode="tel" → abre o teclado numérico no celular. -->
+              <div class="field" data-field>
+                <input class="field__input" id="telefone" name="telefone" type="tel" placeholder=" " autocomplete="tel-national" inputmode="tel" required aria-describedby="telefone-hint telefone-error" maxlength="16">
+                <label class="field__label" for="telefone">Telefone <span aria-hidden="true">*</span></label>
+                <span class="field__status" aria-hidden="true"></span>
+                <p class="sr-only" id="telefone-hint">Formato: DDD e número, por exemplo (27) 91234-5678.</p>
+                <p class="field__error" id="telefone-error"></p>
+              </div>
+
+              <!-- Empresa (opcional) -->
+              <div class="field" data-field>
+                <input class="field__input" id="empresa" name="empresa" type="text" placeholder=" " autocomplete="organization" aria-describedby="empresa-error" maxlength="80">
+                <label class="field__label" for="empresa">Empresa <span class="field__optional">(opcional)</span></label>
+                <span class="field__status" aria-hidden="true"></span>
+                <p class="field__error" id="empresa-error"></p>
+              </div>
+
+              <!-- Assunto. EDITAR: ajuste as opções se quiser. -->
+              <div class="field field--select field--full" data-field>
+                <select class="field__input" id="assunto" name="assunto" required aria-describedby="assunto-error">
+                  <option value="">Selecione um assunto</option>
+                  <option value="orcamento">Orçamento</option>
+                  <option value="duvidas">Dúvidas</option>
+                  <option value="suporte">Suporte</option>
+                  <option value="parcerias">Parcerias</option>
+                  <option value="outro">Outro</option>
+                </select>
+                <label class="field__label" for="assunto">Assunto <span aria-hidden="true">*</span></label>
+                <p class="field__error" id="assunto-error"></p>
+              </div>
+
+              <!-- Mensagem (com contador de caracteres). Vem pré-preenchida
+                   com a mensagem padrão (CONTATO.mensagemPadrao no script.js),
+                   e o cliente pode editar à vontade. -->
+              <div class="field field--textarea field--full" data-field>
+                <textarea class="field__input" id="mensagem" name="mensagem" rows="5" placeholder=" " required aria-describedby="mensagem-counter mensagem-error" maxlength="1000" data-default-message>Olá, gostaria de fazer um orçamento.</textarea>
+                <label class="field__label" for="mensagem">Mensagem <span aria-hidden="true">*</span></label>
+                <span class="field__status" aria-hidden="true"></span>
+                <div class="field__meta">
+                  <p class="field__error" id="mensagem-error"></p>
+                  <p class="field__counter" id="mensagem-counter" data-char-counter>0/1000</p>
+                </div>
+              </div>
+
+              <!-- Consentimento (LGPD). EDITAR: link da Política de Privacidade -->
+              <div class="field field--full field--checkbox" data-field>
+                <label class="checkbox" for="consentimento">
+                  <input id="consentimento" name="consentimento" type="checkbox" required aria-describedby="consentimento-error">
+                  <span class="checkbox__box" aria-hidden="true"><svg class="icon" focusable="false"><use href="#i-check"></use></svg></span>
+                  <span class="checkbox__text">Concordo com o uso dos meus dados para retorno deste contato, conforme a <a class="link-underline" href="#" data-placeholder-link="Política de Privacidade">[Política de Privacidade]</a>. <span aria-hidden="true">*</span></span>
+                </label>
+                <p class="field__error" id="consentimento-error"></p>
+              </div>
+            </div>
+
+            <!-- Mensagem geral do formulário (role="alert" = anúncio imediato) -->
+            <p class="form__feedback" role="alert" data-form-feedback></p>
+
+            <button class="btn btn--primary btn--block form__submit" type="submit">
+              <span class="btn__label">Enviar mensagem</span>
+              <svg class="icon btn__icon" aria-hidden="true" focusable="false"><use href="#i-send"></use></svg>
+              <span class="btn__spinner" aria-hidden="true"></span>
+            </button>
+          </form>
+
+          <!-- Tela de sucesso (SIMULADA). Fica oculta (hidden) até o envio. -->
+          <div class="form-success" role="status" tabindex="-1" data-form-success hidden>
+            <svg class="form-success__icon" viewBox="0 0 52 52" aria-hidden="true" focusable="false">
+              <circle cx="26" cy="26" r="24"/>
+              <path d="M15 27l7 7 15-16"/>
+            </svg>
+            <h3 class="form-success__title">Mensagem enviada!</h3>
+            <p>Obrigado pelo contato. <strong>Atenção:</strong> este é um modelo de demonstração, então nenhum dado foi enviado de verdade.</p>
+            <!-- EDITAR: mensagem de confirmação real (ex.: prazo de retorno) -->
+            <p>[Mensagem de confirmação: informe em quanto tempo a equipe retorna.]</p>
+            <button class="btn btn--ghost" type="button" data-form-reset>
+              <span class="btn__label">Enviar outra mensagem</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- FIM: Contato -->
+
+  </main>
+
+
+  <!-- =====================================================================
+       15. FOOTER (RODAPÉ)
+       O que faz: logo, descrição, redes sociais, links rápidos, contatos
+       clicáveis, nome gigante decorativo, copyright com ano automático (JS)
+       e link "voltar ao topo".
+       ===================================================================== -->
+  <!-- INÍCIO: Footer -->
+  <footer class="site-footer" data-intro-inert>
+    <div class="footer__glow" aria-hidden="true"></div>
+    <div class="container">
+      <div class="footer__top">
+
+        <div class="footer__brand">
+          <a class="logo logo--footer" href="#inicio" aria-label="R-Evolution Partners: voltar ao início">
+            <svg class="logo__mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><use href="#rv-monogram"></use></svg>
+            <svg class="logo__wordmark" viewBox="0 0 236 52" aria-hidden="true" focusable="false"><use href="#rv-wordmark"></use></svg>
+          </a>
+          <!-- EDITAR: breve descrição da empresa para o rodapé -->
+          <p class="footer__desc">[Breve descrição da empresa para o rodapé, em uma ou duas frases.]</p>
+          <!-- EDITAR: links reais das redes sociais (troque href="#") -->
+          <ul class="social" aria-label="Redes sociais">
+            <li><a class="social__link" href="#" data-placeholder-link="Instagram" aria-label="Instagram (link provisório)"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-instagram"></use></svg></a></li>
+            <li><a class="social__link" href="#" data-placeholder-link="LinkedIn" aria-label="LinkedIn (link provisório)"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-linkedin"></use></svg></a></li>
+            <li><a class="social__link" href="#" data-placeholder-link="Facebook" aria-label="Facebook (link provisório)"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-facebook"></use></svg></a></li>
+            <li><a class="social__link" href="#" data-placeholder-link="YouTube" aria-label="YouTube (link provisório)"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-youtube"></use></svg></a></li>
+          </ul>
+        </div>
+
+        <nav class="footer__col" aria-labelledby="footer-nav-title">
+          <h2 class="footer__title" id="footer-nav-title">Navegação</h2>
+          <ul class="footer__links" role="list">
+            <li><a class="link-underline" href="#sobre">Sobre nós</a></li>
+            <li><a class="link-underline" href="#servicos">Serviços</a></li>
+            <li><a class="link-underline" href="#processo">Como trabalhamos</a></li>
+            <li><a class="link-underline" href="#diferenciais">Diferenciais</a></li>
+            <li><a class="link-underline" href="#faq">FAQ</a></li>
+            <li><a class="link-underline" href="#contato">Contato</a></li>
+          </ul>
+        </nav>
+
+        <div class="footer__col">
+          <h2 class="footer__title">Contato</h2>
+          <ul class="footer__links footer__contact" role="list">
+            <li><a class="link-underline" href="tel:+5527992973770" data-contact-link="phone" data-contact-text="phone">(27) 99297-3770</a></li>
+            <li><a class="link-underline" href="mailto:revolutionpartners26@gmail.com?subject=Or%C3%A7amento&amp;body=Ol%C3%A1%2C%20gostaria%20de%20fazer%20um%20or%C3%A7amento." data-contact-link="email" data-contact-text="email">revolutionpartners26@<wbr>gmail.com</a></li>
+            <li><a class="link-underline" href="https://wa.me/5527992973770?text=Ol%C3%A1%2C%20gostaria%20de%20fazer%20um%20or%C3%A7amento." target="_blank" rel="noopener noreferrer" data-contact-link="whatsapp">Conversar no WhatsApp<span class="sr-only"> (abre em nova aba)</span></a></li>
+            <li>24h, todos os dias</li>
+          </ul>
+        </div>
+
+        <div class="footer__col">
+          <h2 class="footer__title">Vamos evoluir juntos?</h2>
+          <p class="footer__cta-text">Transformamos negócios em histórias de sucesso. Sua evolução digital começa aqui.</p>
+          <a class="btn btn--primary btn--sm" href="#contato">
+            <span class="btn__label">Fale conosco</span>
+            <svg class="icon btn__icon" aria-hidden="true" focusable="false"><use href="#i-arrow-right"></use></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Nome gigante decorativo (aria-hidden: o nome já é lido no copyright) -->
+      <p class="footer__wordmark" aria-hidden="true"><span class="brand-r">R</span>-EVOLUTION</p>
+
+      <div class="footer__bottom">
+        <p class="footer__copy">
+          © <span data-current-year></span>
+          <span class="brand"><span class="sr-only">R-Evolution Partners</span><span class="brand__visual" aria-hidden="true"><span class="brand-r">R</span>-Evolution Partners</span></span>.
+          Todos os direitos reservados.
+        </p>
+        <!-- EDITAR: CNPJ real -->
+        <p class="footer__legal">CNPJ: [CNPJ]</p>
+        <a class="footer__top-link link-underline" href="#inicio">
+          Voltar ao topo
+          <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up"></use></svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+  <!-- FIM: Footer -->
+
+
+  <!-- =====================================================================
+       16. BOTÕES FLUTUANTES
+       O que faz: "voltar ao topo" (aparece após rolar; o anel mostra o
+       progresso da leitura) e WhatsApp, que abre a conversa em nova aba
+       já com a mensagem padrão (link gerado pelo JS a partir de CONTATO).
+       target="_blank" → nova aba; rel="noopener noreferrer" → segurança:
+       a página aberta não consegue controlar este site.
+       ===================================================================== -->
+  <!-- INÍCIO: Botões flutuantes -->
+  <div class="floating" data-intro-inert>
+    <a class="float-btn float-btn--top" href="#inicio" data-back-to-top aria-label="Voltar ao topo">
+      <!-- Anel de progresso: o CSS usa a variável --progress (definida pelo JS) -->
+      <svg class="float-btn__ring" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><circle cx="24" cy="24" r="22"/></svg>
+      <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up"></use></svg>
+    </a>
+    <a class="float-btn float-btn--whatsapp" href="https://wa.me/5527992973770?text=Ol%C3%A1%2C%20gostaria%20de%20fazer%20um%20or%C3%A7amento." target="_blank" rel="noopener noreferrer" data-contact-link="whatsapp" aria-label="Conversar pelo WhatsApp (abre em nova aba)">
+      <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-whatsapp"></use></svg>
+      <span class="float-btn__tooltip" aria-hidden="true">Fale pelo WhatsApp</span>
+    </a>
+  </div>
+  <!-- FIM: Botões flutuantes -->
+
+
+  <!-- =====================================================================
+       17. SCRIPT PRINCIPAL
+       defer → o arquivo baixa em paralelo e só executa depois que o HTML
+       inteiro foi lido (assim todos os elementos já existem).
+       Não usamos type="module" porque módulos são bloqueados quando o site
+       é aberto com duplo clique (protocolo file://).
+       ===================================================================== -->
+  <script src="js/script.js" defer></script>
+</body>
+</html>
